@@ -44,7 +44,7 @@ class WebServer:
         try:
             message = self.connectionSocket.recv(1024)
             print(message.split())
-            if(message.split()[0].decode("utf-8") == 'GET'):
+            if(len(message.split()) > 0 and message.split()[0].decode("utf-8") == 'GET'):
                 self.HttpGet(message)
         except KeyboardInterrupt:
             self.serverSocket.close()
