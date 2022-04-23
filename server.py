@@ -1,6 +1,7 @@
 from socket import *
 serverSocket = socket(AF_INET, SOCK_STREAM)
 #Prepare a sever socket
+serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 serverPort = 6789
 serverSocket.bind(('', serverPort))
 serverSocket.listen(1)
