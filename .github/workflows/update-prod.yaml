@@ -1,0 +1,21 @@
+name: Update Productio Server
+on:
+  push:
+    branches: [master]
+
+jobs:
+  job_one:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      name: connecting to production
+      uses: appleboy/ssh-action@master
+      with:
+        host: 8.9.4.246
+        username: fandemic
+        key: ${{secrets.SSH_SERVER}}
+        port: 22
+        script: |
+          cd CS330-NetworkingProject
+          git pull origin master
+          git status
