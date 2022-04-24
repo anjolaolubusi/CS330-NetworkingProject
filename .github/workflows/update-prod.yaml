@@ -17,5 +17,4 @@ jobs:
         port: 22
         script: |
           cd CS330-NetworkingProject
-          git pull origin main
-          sudo systemctl restart cs330-webserver.service
+          ./update-server.sh
