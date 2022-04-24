@@ -8,7 +8,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: Update Frontend
+    - name: Update Server
       uses: appleboy/ssh-action@master
       with:
         host: 8.9.4.246
@@ -18,4 +18,4 @@ jobs:
         script: |
           cd CS330-NetworkingProject
           git pull origin main
-          git status
+          systemctl restart cs330-webserver.service
