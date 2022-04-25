@@ -17,6 +17,21 @@ class WebServer:
         else:
             raise IOError
     
+    def HttpPost(self, message):
+        endpoint = message.split()[1].decode("utf-8")[1:]
+        if(endpoint == "postTest"):
+            self.postTest(message)
+        else:
+            self.connectionSocket.send(str.encode("HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\n"))
+            self.connectionSocket.send(str.encode("Can not find endpoint"))
+            self.connectionSocket.close()        
+
+
+    def postTest(self, message):
+        self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
+        self.connectionSocket.send(str.encode("Hit Post. Endpoint: ") + message.split()[1])
+        self.connectionSocket.close()        
+
     def SendHTMLFile(self, filename):
         print('Sending {0}'.format(filename))
         f = open(filename, 'rb')
@@ -44,8 +59,11 @@ class WebServer:
         try:
             message = self.connectionSocket.recv(1024)
             print(message.split())
-            if(len(message.split()) > 0 and message.split()[0].decode("utf-8") == 'GET'):
-                self.HttpGet(message)
+            if(len(message.split()) > 0):
+                if(message.split()[0].decode("utf-8") == 'GET'):
+                    self.HttpGet(message)
+                if(message.split()[0].decode("utf-8") == 'POST'):
+                    self.HttpPost(message)
         except KeyboardInterrupt:
             self.serverSocket.close()
         except IOError:
