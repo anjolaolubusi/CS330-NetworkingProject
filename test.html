@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<meta http-equiv="refresh" content="1">-->
+    <title>Test</title>
+
+    Trial version
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+    <script>
+        $(document).ready(function(){
+            $("#btn").click(function(){
+                $("#test").load("data.asp");
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $("#send").click(function(){
+                $.post("info.php",
+                {
+                    name: "Donald Duck",
+                    city: "Duckburg"
+                }, function(data, status) {
+                    $("#rs").html(data)
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#toot").click(function() {
+                $.get("text.asp", function(data, status) {
+                $("#rsvp").html(data);
+                alert(status);
+                });
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+
+    <div id="test">
+        <p> This is maca </p>
+    </div>
+    
+    <button id="btn"> Click to change text </button>
+
+    </br>
+
+    <button id="send"> Send a HTTP POST request, results if sent by server will be displayed as an alert </button>
+    
+    </br>
+    <button id="toot"> Get response from server</button>
+
+    <p id="rs"></p>
+    <p id="rsvp"></p>
+
+</body>
+</html>
