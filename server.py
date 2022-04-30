@@ -23,6 +23,8 @@ class WebServer:
         filename = message.split()[1].decode("utf-8")[1:]
         if(self.rePatternForFiles.match(filename)):
             self.SendHTMLFile(filename)
+        elif(filename == ''):
+            self.SendHTMLFile('HelloWorld.html')
         else:
             raise IOError
     
