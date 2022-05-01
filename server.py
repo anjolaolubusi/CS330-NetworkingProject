@@ -68,13 +68,7 @@ class WebServer:
     '''
     def GetJsonBody(self, message):
         json_str = ""
-        json_index = 0
-        for i in range(len(message.split())):
-            if (message.split()[i].decode() == 'same-origin'):
-                json_index = i + 1
-                break
-        for i in range(json_index, len(message.split())):
-            json_str += message.split()[i].decode()
+        json_str = message.split(b'\r\n\r\n')[-1].decode()
         print("JSON_STR: {}".format(json_str))
         return json.loads(json_str)
 
@@ -113,9 +107,9 @@ class WebServer:
         self.connectionSocket, addr = self.serverSocket.accept()
         print(f'Running at {addr}')
         try:
-            message = self.connectionSocket.recv(1024)
-            print(message)
-            print(message.split())
+            message = self.connectionSocket.recv(4096)
+            print(repr(message))
+            print(message.split(b'\r\n\r\n'))
             if(len(message.split()) > 0):
                 if(message.split()[0].decode("utf-8") == 'GET'):
                     self.HttpGet(message)
