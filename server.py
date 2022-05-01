@@ -7,13 +7,14 @@ class WebServer:
     Class initaliztion
     portNumber - Port Number that the web host will be hosted on
     '''
-    def __init__(self, portNumber=80):
+    def __init__(self, portNumber=6789):
         self.serverSocket = socket(AF_INET, SOCK_STREAM)
         self.serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
         self.serverPort = portNumber
         self.serverSocket.bind(('', self.serverPort))
         self.serverSocket.listen(1)
         self.rePatternForFiles = re.compile("(\w+[\/])?\w+[.]{1}\w+")
+        self.totalNumOfPartcipants = 0
     
     '''
     Function that process the HTTP GET Call
@@ -36,10 +37,19 @@ class WebServer:
         endpoint = message.split()[1].decode("utf-8")[1:]
         if(endpoint == "echo"):
             self.echo(message)
+        elif(endpoint == "RegisterUser"):
+            self.RegisterUser()
         else:
             self.connectionSocket.send(str.encode("HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\n"))
             self.connectionSocket.send(str.encode("Can not find endpoint"))
             self.connectionSocket.close()        
+
+    def RegisterUser(self):
+        self.totalNumOfPartcipants += 1
+        self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
+        self.connectionSocket.send(str.encode(json.dumps({"user_id": self.totalNumOfPartcipants})))
+        self.connectionSocket.close()
+
 
     '''
     Python Function For Echo Endpoint
