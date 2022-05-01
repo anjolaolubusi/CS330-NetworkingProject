@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<meta http-equiv="refresh" content="1">-->
+    <title>Test</title>
+
+    <h1>Trial version 1.1.0</h1>
+
+    <!-- Load JQuerry library-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+    <!-- Javascript that tests loading in/refreshing sections of a page-->
+    <script>
+        $(document).ready(function(){
+            $("#btn").click(function(){
+                $("#test").load("kahoot.asp");
+            });
+        });
+    </script>
+    
+    <!-- Javascript that tests post requests-->
+    <script>
+        $(document).ready(function(){
+            let info  =  {
+                    name: "Donald Duck",
+                    city: "Duckburg"
+                }
+            $("#send").click(function(){
+                $.post("echo",
+                JSON.stringify(info)
+                , function(data, status) {
+                    $("#rsvp").html(data);
+                    alert(data);
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+    <div id="test">
+        <p> This will be replaced with a html page </p>
+    </div>
+
+    </br>
+    
+    <button id="btn"> Click to change text </button>
+
+    </br>
+
+    <button id="send"> Send a HTTP POST request, results if sent by server will be displayed as an alert </button>
+
+    <p id="rsvp"></p>
+
+</body>
+</html>

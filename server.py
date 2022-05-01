@@ -7,13 +7,13 @@ class WebServer:
     Class initaliztion
     portNumber - Port Number that the web host will be hosted on
     '''
-    def __init__(self, portNumber=6789):
+    def __init__(self, portNumber=80):
         self.serverSocket = socket(AF_INET, SOCK_STREAM)
         self.serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
         self.serverPort = portNumber
         self.serverSocket.bind(('', self.serverPort))
         self.serverSocket.listen(1)
-        self.rePatternForFiles = re.compile("\w+[.]{1}\w+")
+        self.rePatternForFiles = re.compile("(\w+[\/])?\w+[.]{1}\w+")
     
     '''
     Function that process the HTTP GET Call
@@ -60,8 +60,8 @@ class WebServer:
         json_str = ""
         json_index = 0
         for i in range(len(message.split())):
-            if (message.split()[i].decode() == 'Content-Length:'):
-                json_index = i + 2
+            if (message.split()[i].decode() == 'same-origin'):
+                json_index = i + 1
                 break
         for i in range(json_index, len(message.split())):
             json_str += message.split()[i].decode()
