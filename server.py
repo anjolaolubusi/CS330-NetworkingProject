@@ -15,6 +15,7 @@ class WebServer:
         self.serverSocket.listen(1)
         self.rePatternForFiles = re.compile("(\w+[\/])?\w+[.]{1}\w+")
         self.totalNumOfPartcipants = 0
+        self.quizResponses = []
     
     '''
     Function that process the HTTP GET Call
@@ -26,6 +27,10 @@ class WebServer:
             self.SendHTMLFile(filename)
         elif(filename == ''):
             self.SendHTMLFile('HelloWorld.html')
+        elif(filename == 'GetTally'):
+            with open("tallyTest.json", "r") as f:
+                self.quizResponses = json.load(f)
+            self.getTally()
         else:
             raise IOError
     
@@ -61,6 +66,11 @@ class WebServer:
         self.connectionSocket.send(str.encode("Hit Post. Endpoint: ") + message.split()[1] + str.encode("\n"))
         self.connectionSocket.send(str.encode("Body of POST call: " + json.dumps(echo_message)))
         self.connectionSocket.close()       
+
+    def getTally(self):
+        questionTally = {}
+        for resp in self.quizResponses:
+            print(resp)
 
     '''
     Process HTTP POST call to return python object of Request Object
