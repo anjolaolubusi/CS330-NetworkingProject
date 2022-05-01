@@ -7,13 +7,14 @@ class WebServer:
     Class initaliztion
     portNumber - Port Number that the web host will be hosted on
     '''
-    def __init__(self, portNumber=80):
+    def __init__(self, portNumber=6789):
         self.serverSocket = socket(AF_INET, SOCK_STREAM)
         self.serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
         self.serverPort = portNumber
         self.serverSocket.bind(('', self.serverPort))
         self.serverSocket.listen(1)
         self.rePatternForFiles = re.compile("(\w+[\/])?\w+[.]{1}\w+")
+        self.totalNumOfPartcipants = 0
     
     '''
     Function that process the HTTP GET Call
@@ -36,10 +37,19 @@ class WebServer:
         endpoint = message.split()[1].decode("utf-8")[1:]
         if(endpoint == "echo"):
             self.echo(message)
+        elif(endpoint == "RegisterUser"):
+            self.RegisterUser()
         else:
             self.connectionSocket.send(str.encode("HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\n"))
             self.connectionSocket.send(str.encode("Can not find endpoint"))
             self.connectionSocket.close()        
+
+    def RegisterUser(self):
+        self.totalNumOfPartcipants += 1
+        self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
+        self.connectionSocket.send(str.encode(json.dumps({"user_id": self.totalNumOfPartcipants})))
+        self.connectionSocket.close()
+
 
     '''
     Python Function For Echo Endpoint
@@ -58,13 +68,7 @@ class WebServer:
     '''
     def GetJsonBody(self, message):
         json_str = ""
-        json_index = 0
-        for i in range(len(message.split())):
-            if (message.split()[i].decode() == 'same-origin'):
-                json_index = i + 1
-                break
-        for i in range(json_index, len(message.split())):
-            json_str += message.split()[i].decode()
+        json_str = message.split(b'\r\n\r\n')[-1].decode()
         print("JSON_STR: {}".format(json_str))
         return json.loads(json_str)
 
@@ -103,9 +107,9 @@ class WebServer:
         self.connectionSocket, addr = self.serverSocket.accept()
         print(f'Running at {addr}')
         try:
-            message = self.connectionSocket.recv(1024)
-            print(message)
-            print(message.split())
+            message = self.connectionSocket.recv(4096)
+            print(repr(message))
+            print(message.split(b'\r\n\r\n'))
             if(len(message.split()) > 0):
                 if(message.split()[0].decode("utf-8") == 'GET'):
                     self.HttpGet(message)
