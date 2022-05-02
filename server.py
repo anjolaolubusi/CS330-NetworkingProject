@@ -16,7 +16,7 @@ class WebServer:
         self.rePatternForFiles = re.compile("(\w+[\/])?\w+[.]{1}\w+")
         self.totalNumOfPartcipants = 0
         self.quizResponses = []
-    
+
     '''
     Function that process the HTTP GET Call
     message - Object that represents the socket message
@@ -26,7 +26,7 @@ class WebServer:
         if(self.rePatternForFiles.match(filename)):
             self.SendHTMLFile(filename)
         elif(filename == ''):
-            self.SendHTMLFile('HelloWorld.html')
+            self.SendHTMLFile('test.html')
         elif(filename == 'GetTally'):
             with open("tallyTest.json", "r") as f:
                 self.quizResponses = json.load(f)
@@ -38,7 +38,7 @@ class WebServer:
             self.getTallyById(requestBody['user_id'])
         else:
             raise IOError
-    
+
     '''
     Function that process the HTTP POST Call
     message - Object that represents the socket message
@@ -52,7 +52,7 @@ class WebServer:
         else:
             self.connectionSocket.send(str.encode("HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\n"))
             self.connectionSocket.send(str.encode("Can not find endpoint"))
-            self.connectionSocket.close()        
+            self.connectionSocket.close()
 
     def RegisterUser(self):
         self.totalNumOfPartcipants += 1
@@ -70,7 +70,7 @@ class WebServer:
         self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
         self.connectionSocket.send(str.encode("Hit Post. Endpoint: ") + message.split()[1] + str.encode("\n"))
         self.connectionSocket.send(str.encode("Body of POST call: " + json.dumps(echo_message)))
-        self.connectionSocket.close()       
+        self.connectionSocket.close()
 
     def getTally(self):
         questionTally = {}

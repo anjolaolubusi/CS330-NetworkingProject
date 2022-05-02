@@ -7,7 +7,7 @@
     <!--<
         This line refreshes the entire html page each second
     meta http-equiv="refresh" content="1">
-    
+
     -->
     <title>Kahoot!! </title>
 
@@ -79,24 +79,52 @@
 
 </head>
 <body>
-    
+
     <section class="blue">
-        <h1>Kahoot!!</h1>
-        <p>Answer the damn questions</p>
+        <h1>The Wooster Voting Game</h1>
+        <p>You ready to answer some questions?</p>
+        <p style="text-align:center">Answer these questions correctly and see how many you get right! Compare your answers with other players!</p>
     </section>
     <div class="row">
         <div class="column">
           <img src="images/panda.jpg" alt="panda" style="width:100%">
         </div>
+
         <div class="column">
           <img src="images/racoon.png" alt="racoon" style="width:113%">
         </div>
+
+        <div class="column">
+          <img src="images/SilverBear.jpg" alt="racoon" width="450" height="329" style="position:relative; left:60px">
+        </div>
     </div>
     <div class="row">
-        <div class="column"><button id="yes"> Yes </button>
+
+      <div class = "column">
+      <!--<div class = "column"><button id="Q1Yes">Yes </button>-->
+        <button onclick="fakefunction()">Yes</button>
+        <button onclick="fakefunction2()">No</button>
+        <!--<span id = "fakeResult"></span> Hold off may be useful later-->
+      </div>
+
+      <div class="column">
+      <!--<div class="column"><button id="Q2No">No</button>-->
+        <button onclick="fakefunction3()">Yes</button>
+        <button onclick="fakefunction4()">No</button>
+        <!--<span id = "fakeResult2"></span>-->
+      </div>
+
+      <div class="column" style="position:relative; left:60px">
+      <!--<div class="column"><button id="Q2No">No</button>-->
+        <button onclick="fakefunction4()">Silverback Gorilla</button>
+        <button onclick="fakefunction5()">Grizzly Bear</button>
+        <!--<span id = "fakeResult2"></span>-->
+      </div>
+
+      <!--  <div class="column"><button id="yes"> Yes </button>
         </div>
         <div class="column"><button id="no"> No </button>
-        </div>
+        </div>-->
     </div>
 
 
