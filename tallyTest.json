@@ -2,7 +2,7 @@
         {
             "user_id": 1,
             "question_id": 1,
-            "answer": "yes"
+            "answer": "no"
         },
         {
             "user_id": 1,
@@ -17,7 +17,7 @@
         {
             "user_id": 2,
             "question_id": 2,
-            "answer": "no"
+            "answer": "yes"
         },
         {
             "user_id": 3,
