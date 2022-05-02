@@ -1,0 +1,32 @@
+[
+        {
+            "user_id": 1,
+            "question_id": 1,
+            "answer": "no"
+        },
+        {
+            "user_id": 1,
+            "question_id": 2,
+            "answer": "yes"
+        },
+        {
+            "user_id": 2,
+            "question_id": 1,
+            "answer": "no"
+        },
+        {
+            "user_id": 2,
+            "question_id": 2,
+            "answer": "yes"
+        },
+        {
+            "user_id": 3,
+            "question_id": 1,
+            "answer": "yes"
+        },
+        {
+            "user_id": 3,
+            "question_id": 2,
+            "answer": "yes"
+        }
+]

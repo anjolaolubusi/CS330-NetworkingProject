@@ -15,6 +15,7 @@ class WebServer:
         self.serverSocket.listen(1)
         self.rePatternForFiles = re.compile("(\w+[\/])?\w+[.]{1}\w+")
         self.totalNumOfPartcipants = 0
+        self.quizResponses = []
 
     '''
     Function that process the HTTP GET Call
@@ -26,6 +27,15 @@ class WebServer:
             self.SendHTMLFile(filename)
         elif(filename == ''):
             self.SendHTMLFile('test.html')
+        elif(filename == 'GetTally'):
+            with open("tallyTest.json", "r") as f:
+                self.quizResponses = json.load(f)
+            self.getTally()
+        elif(filename == 'GetTallyById'):
+            with open("tallyTest.json", "r") as f:
+                self.quizResponses = json.load(f)
+            requestBody = self.GetJsonBody(message)
+            self.getTallyById(requestBody['user_id'])
         else:
             raise IOError
 
@@ -61,6 +71,32 @@ class WebServer:
         self.connectionSocket.send(str.encode("Hit Post. Endpoint: ") + message.split()[1] + str.encode("\n"))
         self.connectionSocket.send(str.encode("Body of POST call: " + json.dumps(echo_message)))
         self.connectionSocket.close()
+
+    def getTally(self):
+        questionTally = {}
+        for resp in self.quizResponses:
+            if(resp['question_id'] not in questionTally):
+                questionTally[resp['question_id']] = {}
+            if(resp['answer'] not in questionTally[resp['question_id']]):
+                questionTally[resp['question_id']][resp['answer']] = 1
+            else:
+                questionTally[resp['question_id']][resp['answer']] += 1
+        self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
+        self.connectionSocket.send(str.encode(json.dumps(questionTally)))
+        self.connectionSocket.close()
+
+    def getTallyById(self, user_id):
+        questionTally = {}
+        for resp in self.quizResponses:
+            if(resp['question_id'] not in questionTally):
+                questionTally[resp['question_id']] = {}
+            if(resp['answer'] not in questionTally[resp['question_id']] and resp['user_id'] == user_id):
+                questionTally[resp['question_id']][resp['answer']] = 1
+            elif(resp['user_id'] == user_id):
+                questionTally[resp['question_id']][resp['answer']] += 1    
+        self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
+        self.connectionSocket.send(str.encode(json.dumps(questionTally)))
+        self.connectionSocket.close()  
 
     '''
     Process HTTP POST call to return python object of Request Object
