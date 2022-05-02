@@ -8,6 +8,35 @@
     <title>Wooster Voting Game!</title>
 
     <h1 style="text-align:center">Welcome To The Wooster Voting Game!</h1>
+    <style>
+        .centerbtn {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+            text-align:center;
+            padding: 5px;
+        }
+        .startbutton {
+            background-color: #4682b4;
+            border: none;
+            border-radius:10px;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+        .startbutton:hover {
+            background-color:#315c7e;
+            transition: 0.2s;
+        }
+
+        .startbutton:active {
+            background-color: #162939;
+        }
+    </style>
 
     <!-- Load JQuerry library-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -48,11 +77,15 @@
 
     </br>
 
-    <button id="btn"> Click to change text </button>
+    <div class="centerbtn">
+    <button class="startbutton" id="btn"> Enter Game </button>
+    </div>
 
     </br>
 
-    <button id="send"> Send a HTTP POST request, results if sent by server will be displayed as an alert </button>
+    <div class="centerbtn">
+        <button id="send"> Test a HTTP POST request</button>
+    </div>
 
     <p id="rsvp"></p>
 
