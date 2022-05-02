@@ -87,7 +87,7 @@
         <p>You ready to answer some questions?</p>
         <p style="text-align:center">Answer these questions correctly and see how many you get right! Compare your answers with other players!</p>
     </section>
-    <div class="row">
+    <div class="row" id="Question 1">
         <div class="center">
             <img src="images/SilverBear.jpg" alt="SilverBear" style="width:75%">
         </div>
@@ -95,50 +95,66 @@
     <div class="row">
       <div class="center">
       <!--<div class="column"><button id="Q2No">No</button>-->
-        <button onclick="fakefunction4()" class="button">Silverback Gorilla</button>
-        <button onclick="fakefunction5()" class="button"> Grizzly Bear</button>
+        <input type="radio" id="Silverback" name="Question1" value="Silverback Gorilla">
+        <label for="Silverback Gorilla">Silverback Gorilla</label> <br>
+        <input type="radio" id="Grizzly" name="Question1" value="Grizzly Bear">
+        <label for="Grizzly Bear">Grizzly Bear</label> <br>
+        <!--<button onclick="fakefunction4()" class="button">Silverback Gorilla</button>
+        <button onclick="fakefunction5()" class="button"> Grizzly Bear</button>-->
         <!--<span id = "fakeResult2"></span>-->
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="Question 2">
         <div class="center">
-            <img src="images/SilverBear.jpg" alt="SilverBear" style="width:75%">
+            <img src="images/Wooster.png" alt="Wooster" style="width:75%">
         </div>
     </div>
     <div class="row">
       <div class="center">
+        <input type="radio" id="2000" name="Question2" value="2000">
+        <label for="2000">Approx. 2000</label> <br>
+        <input type="radio" id="1000" name="Question2" value="1000">
+        <label for="1000">Approx. 1000</label> <br>
       <!--<div class="column"><button id="Q2No">No</button>-->
-        <button onclick="fakefunction4()" class="button">Silverback Gorilla</button>
-        <button onclick="fakefunction5()" class="button"> Grizzly Bear</button>
+      <!--  <button onclick="fakefunction4()" class="button">Silverback Gorilla</button>
+        <button onclick="fakefunction5()" class="button"> Grizzly Bear</button>-->
         <!--<span id = "fakeResult2"></span>-->
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="Question 3">
         <div class="center">
-            <img src="images/SilverBear.jpg" alt="SilverBear" style="width:75%">
+            <img src="images/Berry.png" alt="Berry" style="width:75%">
         </div>
     </div>
     <div class="row">
       <div class="center">
-      <!--<div class="column"><button id="Q2No">No</button>-->
+        <input type="radio" id="Yes" name="Question3" value="Yes">
+        <label for="Yes">Yes</label> <br>
+        <input type="radio" id="No" name="Question3" value="No">
+        <label for="No">No</label> <br>
+      <!--<div class="column"><button id="Q2No">No</button>
         <button onclick="fakefunction4()" class="button">Silverback Gorilla</button>
-        <button onclick="fakefunction5()" class="button"> Grizzly Bear</button>
+        <button onclick="fakefunction5()" class="button"> Grizzly Bear</button>-->
         <!--<span id = "fakeResult2"></span>-->
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="Question 4">
         <div class="center">
-            <img src="images/SilverBear.jpg" alt="SilverBear" style="width:75%">
+            <img src="images/News.jpg" alt="New" style="width:75%">
         </div>
     </div>
     <div class="row">
       <div class="center">
-      <!--<div class="column"><button id="Q2No">No</button>-->
+        <input type="radio" id="GoodNews" name="Question4" value="GoodNews">
+        <label for="GoodNews">Good News</label> <br>
+        <input type="radio" id="BadNews" name="Question4" value="BadNews">
+        <label for="BadNews">Bad News</label> <br>
+      <!--<div class="column"><button id="Q2No">No</button>
         <button onclick="fakefunction4()" class="button">Silverback Gorilla</button>
-        <button onclick="fakefunction5()" class="button"> Grizzly Bear</button>
+        <button onclick="fakefunction5()" class="button"> Grizzly Bear</button> -->
         <!--<span id = "fakeResult2"></span>-->
       </div>
     </div>
