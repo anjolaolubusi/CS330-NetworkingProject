@@ -79,30 +79,18 @@
     </style>
 
     <script>
-    var currentQuestion = 1;
-    var userId = 0;
-    function UpdateQuestion(data){
-        let test = JSON.parse(data);
-        console.log(test);
-        document.getElementById("question_image").src = test['image'];
-        document.getElementById("Option1Text").innerHTML = test['option1'];
-        document.getElementById("Option1").value = test['option1'];
-        document.getElementById("Option2Text").innerHTML = test['option2'];
-        document.getElementById("Option2").value = test['option2'];
-        document.getElementById("Option1").checked = false;
-        document.getElementById("Option2").checked = false;
-    }
-
+    var currentQuestion = 3;
     $(document).ready(function(){
-        $.get("RegisterUser", null, function(data, status){
-          let temp = JSON.parse(data);
-          userId = temp['user_id'];
-        })
-
         $.post("getQuestionsById",
                 JSON.stringify({question_id: currentQuestion})
                 , function(data, status) {
-                    UpdateQuestion(data);
+                    let test = JSON.parse(data);
+                    console.log(test);
+                    document.getElementById("question_image").src = test['image'];
+                    document.getElementById("Option1Text").innerHTML = test['option1'];
+                    document.getElementById("Option1").value = test['option1'];
+                    document.getElementById("Option2Text").innerHTML = test['option2'];
+                    document.getElementById("Option2").value = test['option2'];
                 }); 
                 
         $("#PrevQ").click(function(){
@@ -113,7 +101,13 @@
                 $.post("getQuestionsById",
                 JSON.stringify({question_id: currentQuestion})
                 , function(data, status) {
-                  UpdateQuestion(data);
+                    let test = JSON.parse(data);
+                    console.log(test);
+                    document.getElementById("question_image").src = test['image'];
+                    document.getElementById("Option1Text").innerHTML = test['option1'];
+                    document.getElementById("Option1").value = test['option1'];
+                    document.getElementById("Option2Text").innerHTML = test['option2'];
+                    document.getElementById("Option2").value = test['option2'];
                 });
             });
 
@@ -125,26 +119,14 @@
                 $.post("getQuestionsById",
                 JSON.stringify({question_id: currentQuestion})
                 , function(data, status) {
-                  UpdateQuestion(data);
+                    let test = JSON.parse(data);
+                    console.log(test);
+                    document.getElementById("question_image").src = test['image'];
+                    document.getElementById("Option1Text").innerHTML = test['option1'];
+                    document.getElementById("Option1").value = test['option1'];
+                    document.getElementById("Option2Text").innerHTML = test['option2'];
+                    document.getElementById("Option2").value = test['option2'];
                 });
-            });
-
-            $("#Option1").click(function(){
-              console.log(userId)
-              $.post("acceptAnswer",
-                JSON.stringify({question_id: currentQuestion, answer: $("#Option1").val(), user_id: userId})
-                , function(data, status) {
-                    console.log(data);
-                }); 
-            });
-
-            $("#Option2").click(function(){
-              console.log(userId)
-              $.post("acceptAnswer",
-                JSON.stringify({question_id: currentQuestion, answer: $("#Option2").val(), user_id: userId})
-                , function(data, status) {
-                    console.log(data);
-                }); 
             });
     }); 
     

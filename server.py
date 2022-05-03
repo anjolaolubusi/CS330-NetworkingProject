@@ -16,6 +16,8 @@ class WebServer:
         self.rePatternForFiles = re.compile("(\w+[\/])?\w+[.]{1}\w+")
         self.totalNumOfPartcipants = 0
         self.quizResponses = []
+        with open("questions.json", "r") as f:
+            self.questions = json.load(f)
 
     '''
     Function that process the HTTP GET Call
@@ -28,14 +30,14 @@ class WebServer:
         elif(filename == ''):
             self.SendHTMLFile('test.html')
         elif(filename == 'GetTally'):
-            with open("tallyTest.json", "r") as f:
-                self.quizResponses = json.load(f)
             self.getTally()
         elif(filename == 'GetTallyById'):
             with open("tallyTest.json", "r") as f:
                 self.quizResponses = json.load(f)
             requestBody = self.GetJsonBody(message)
             self.getTallyById(requestBody['user_id'])
+        elif(filename == "RegisterUser"):
+            self.RegisterUser()
         else:
             raise IOError
 
@@ -47,8 +49,12 @@ class WebServer:
         endpoint = message.split()[1].decode("utf-8")[1:]
         if(endpoint == "echo"):
             self.echo(message)
-        elif(endpoint == "RegisterUser"):
-            self.RegisterUser()
+        elif(endpoint == 'getQuestionsById'):
+            question_id = self.GetJsonBody(message)['question_id']
+            self.getQuestionsById(question_id)
+        elif(endpoint == 'acceptAnswer'):
+            answer = self.GetJsonBody(message)
+            self.acceptAnswer(answer)
         else:
             self.connectionSocket.send(str.encode("HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\n"))
             self.connectionSocket.send(str.encode("Can not find endpoint"))
@@ -97,6 +103,27 @@ class WebServer:
         self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
         self.connectionSocket.send(str.encode(json.dumps(questionTally)))
         self.connectionSocket.close()  
+
+    def getQuestionsById(self, id):
+        question = self.questions[str(id)]
+        self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
+        self.connectionSocket.send(str.encode(json.dumps(question)))
+        self.connectionSocket.close()
+        
+    def acceptAnswer(self, answer):
+        questionAnswered = False
+        for i in range(len(self.quizResponses)):
+            if(self.quizResponses[i]['user_id'] == answer['user_id'] and self.quizResponses[i]['question_id'] == answer['question_id']):
+                questionAnswered = True
+                break
+        if(questionAnswered):
+            self.quizResponses[i]['answer'] = answer['answer']
+        else:
+            self.quizResponses.append(answer)
+        self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
+        self.connectionSocket.send(str.encode(json.dumps(self.quizResponses)))
+        self.connectionSocket.close()
+
 
     '''
     Process HTTP POST call to return python object of Request Object
