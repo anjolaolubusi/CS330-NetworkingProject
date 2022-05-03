@@ -1,0 +1,22 @@
+{
+    "1": {
+        "image": "images/SilverBear.jpg",
+        "option1": "Silverback Gorilla",
+        "option2": "Grizzly Bear"
+    },
+    "2": {
+        "image": "images/Wooster.PNG",
+        "option1": "Approx. 2000",
+        "option2": "Approx. 1000"
+    },
+    "3": {
+        "image": "images/Berry.PNG",
+        "option1": "Yes",
+        "option2": "No"
+    },    
+    "4": {
+        "image": "images/News.jpg",
+        "option1": "Good News",
+        "option2": "Bad News"
+    }
+}

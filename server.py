@@ -16,6 +16,8 @@ class WebServer:
         self.rePatternForFiles = re.compile("(\w+[\/])?\w+[.]{1}\w+")
         self.totalNumOfPartcipants = 0
         self.quizResponses = []
+        with open("questions.json", "r") as f:
+            self.questions = json.load(f)
 
     '''
     Function that process the HTTP GET Call
@@ -49,6 +51,9 @@ class WebServer:
             self.echo(message)
         elif(endpoint == "RegisterUser"):
             self.RegisterUser()
+        elif(endpoint == 'getQuestionsById'):
+            question_id = self.GetJsonBody(message)['question_id']
+            self.getQuestionsById(question_id)
         else:
             self.connectionSocket.send(str.encode("HTTP/1.1 404 Not Found\nContent-Type: text/plain\n\n"))
             self.connectionSocket.send(str.encode("Can not find endpoint"))
@@ -97,6 +102,13 @@ class WebServer:
         self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
         self.connectionSocket.send(str.encode(json.dumps(questionTally)))
         self.connectionSocket.close()  
+
+    def getQuestionsById(self, id):
+        question = self.questions[str(id)]
+        self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
+        self.connectionSocket.send(str.encode(json.dumps(question)))
+        self.connectionSocket.close()
+        
 
     '''
     Process HTTP POST call to return python object of Request Object

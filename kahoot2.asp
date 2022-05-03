@@ -79,22 +79,18 @@
     </style>
 
     <script>
-    var currentQuestion = 1;
-    function UpdateQuestion(data){
-        let test = JSON.parse(data);
-        console.log(test);
-        document.getElementById("question_image").src = test['image'];
-        document.getElementById("Option1Text").innerHTML = test['option1'];
-        document.getElementById("Option1").value = test['option1'];
-        document.getElementById("Option2Text").innerHTML = test['option2'];
-        document.getElementById("Option2").value = test['option2'];
-    }
-
+    var currentQuestion = 3;
     $(document).ready(function(){
         $.post("getQuestionsById",
                 JSON.stringify({question_id: currentQuestion})
                 , function(data, status) {
-                    UpdateQuestion(data);
+                    let test = JSON.parse(data);
+                    console.log(test);
+                    document.getElementById("question_image").src = test['image'];
+                    document.getElementById("Option1Text").innerHTML = test['option1'];
+                    document.getElementById("Option1").value = test['option1'];
+                    document.getElementById("Option2Text").innerHTML = test['option2'];
+                    document.getElementById("Option2").value = test['option2'];
                 }); 
                 
         $("#PrevQ").click(function(){
@@ -105,7 +101,13 @@
                 $.post("getQuestionsById",
                 JSON.stringify({question_id: currentQuestion})
                 , function(data, status) {
-                  UpdateQuestion(data);
+                    let test = JSON.parse(data);
+                    console.log(test);
+                    document.getElementById("question_image").src = test['image'];
+                    document.getElementById("Option1Text").innerHTML = test['option1'];
+                    document.getElementById("Option1").value = test['option1'];
+                    document.getElementById("Option2Text").innerHTML = test['option2'];
+                    document.getElementById("Option2").value = test['option2'];
                 });
             });
 
@@ -117,7 +119,13 @@
                 $.post("getQuestionsById",
                 JSON.stringify({question_id: currentQuestion})
                 , function(data, status) {
-                  UpdateQuestion(data);
+                    let test = JSON.parse(data);
+                    console.log(test);
+                    document.getElementById("question_image").src = test['image'];
+                    document.getElementById("Option1Text").innerHTML = test['option1'];
+                    document.getElementById("Option1").value = test['option1'];
+                    document.getElementById("Option2Text").innerHTML = test['option2'];
+                    document.getElementById("Option2").value = test['option2'];
                 });
             });
     }); 
