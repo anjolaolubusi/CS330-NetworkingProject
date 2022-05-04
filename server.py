@@ -28,7 +28,7 @@ class WebServer:
         if(self.rePatternForFiles.match(filename)):
             self.SendHTMLFile(filename)
         elif(filename == ''):
-            self.SendHTMLFile('test.html')
+            self.SendHTMLFile('index.html')
         elif(filename == 'GetTally'):
             self.getTally()
         elif(filename == 'GetTallyById'):
