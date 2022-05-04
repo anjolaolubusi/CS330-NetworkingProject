@@ -182,6 +182,8 @@ class WebServer:
             self.serverSocket.close()
         except IOError:
             self.NotFound()
+        except Exception as e:
+            print(e)
 
 if __name__ == '__main__':
     server = WebServer()
