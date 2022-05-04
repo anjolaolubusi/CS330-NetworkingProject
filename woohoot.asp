@@ -150,7 +150,7 @@
             $("#resultsbtn").click(function(){
               if(sendtoEnd = 1)
               {
-                $("#woohost").load("endscreen.asp");
+                $("#test").load("endscreen.asp");
               }
             });
     });
