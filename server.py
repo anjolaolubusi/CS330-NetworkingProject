@@ -87,6 +87,9 @@ class WebServer:
                 questionTally[resp['question_id']][resp['answer']] = 1
             else:
                 questionTally[resp['question_id']][resp['answer']] += 1
+        print(questionTally.values())
+        for question in self.questions:
+            print(question)
         self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
         self.connectionSocket.send(str.encode(json.dumps(questionTally)))
         self.connectionSocket.close()
@@ -189,4 +192,4 @@ if __name__ == '__main__':
     server = WebServer()
     while True:
         server.run()
-    server.serverSocket.close()
+    #server.serverSocket.close()
