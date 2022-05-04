@@ -7,12 +7,12 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
 
   <style>
       body {
           margin: 0;
-          font-family: 'Roboto Mono', monospace;
+          font-family: 'Lato', sans-serif;
           color: white;
           background: #202731;
       }
@@ -94,14 +94,14 @@
 
 <body>
 
-  <div class="Results">
-    <div style="center">
+  <div id="Results">
+    <div class="center">
 
       <p>This is a test</p>
 
 
     </div>
-    <!-- </div> -->
+  </div>
 
 </body>
 </html>

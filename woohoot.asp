@@ -150,7 +150,8 @@
             $("#resultsbtn").click(function(){
               if(sendtoEnd = 1)
               {
-                $("#woohost").load("endscreen.asp");
+                $("#Resultsbutt").load("endscreen.asp");
+                $("#q_wrap").remove();
               }
             });
     });
@@ -167,7 +168,7 @@
         <p>You ready to answer some questions?</p>
         <p style="text-align:center">Answer these questions correctly and see how many you get right! Compare your answers with other players!</p>
     </section>
-    <div class="question_wrap">
+    <div class="question_wrap" id="q_wrap">
         <div class="center">
             <img id="question_image" style="width: 75%"/> <br>
             <button id="PrevQ">Previous Question</button>

@@ -7,7 +7,7 @@ class WebServer:
     Class initaliztion
     portNumber - Port Number that the web host will be hosted on
     '''
-    def __init__(self, portNumber=6789):
+    def __init__(self, portNumber=80):
         self.serverSocket = socket(AF_INET, SOCK_STREAM)
         self.serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
         self.serverPort = portNumber
