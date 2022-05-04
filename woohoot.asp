@@ -150,8 +150,7 @@
             $("#resultsbtn").click(function(){
               if(sendtoEnd = 1)
               {
-                $("#Resultsbutt").load("endscreen.asp");
-                $("#q_wrap").remove();
+                $("#test").load("endscreen.asp");
               }
             });
     });
