@@ -5,9 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--<meta http-equiv="refresh" content="1">-->
-    <title>Wooster Voting Game!</title>
 
-    <h1 style="text-align:center">Welcome To The Wooster Voting Game!</h1>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+    <title>WooHoot!</title>
+
+    <h1 style="text-align:center; font-family: 'Montserrat', sans-serif; font-size:xxx-large ; margin:50px; color:#ffffff; background-color:#202731">Woohoot!</h1>
     <style>
         .centerbtn {
             display: block;
@@ -29,7 +34,7 @@
             font-size: 16px;
         }
         .startbutton:hover {
-            background-color:#315c7e;
+            background-color:#274a65;
             transition: 0.2s;
         }
 
@@ -45,49 +50,28 @@
     <script>
         $(document).ready(function(){
             $("#btn").click(function(){
-                $("#test").load("kahoot.asp");
-            });
-        });
-    </script>
-
-    <!-- Javascript that tests post requests-->
-    <script>
-        $(document).ready(function(){
-            let info  =  {
-                    name: "Donald Duck",
-                    city: "Duckburg"
-                }
-            $("#send").click(function(){
-                $.post("echo",
-                JSON.stringify(info)
-                , function(data, status) {
-                    $("#rsvp").html(data);
-                    alert(data);
-                });
+                $("#test").load("woohoot.asp");
+                $("#btn_parent").remove();
+                var bg_color = "#202731";
+                document.body.style.background = bg_color;
             });
         });
     </script>
 
 </head>
-<body>
+<body style="background-color: #315c7e;">
 
     <div id="test">
-        <p> This will be replaced with a html page </p>
+        <p>  </p>
     </div>
 
     </br>
 
-    <div class="centerbtn">
-    <button class="startbutton" id="btn"> Enter Game </button>
+    <div class="centerbtn" id="btn_parent">
+        <button class="startbutton" id="btn"> Enter Game </button>
     </div>
 
     </br>
-
-    <div class="centerbtn">
-        <button id="send"> Test a HTTP POST request</button>
-    </div>
-
-    <p id="rsvp"></p>
 
 </body>
 </html>
