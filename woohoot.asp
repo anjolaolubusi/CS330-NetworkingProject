@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
 
     <style>
@@ -79,7 +79,6 @@
     <script>
     var currentQuestion = 1;
     var userId = 0;
-    var sendtoEnd = 0;
     function UpdateQuestion(data){
         let test = JSON.parse(data);
         console.log(test);
@@ -102,8 +101,8 @@
                 JSON.stringify({question_id: currentQuestion})
                 , function(data, status) {
                     UpdateQuestion(data);
-                });
-
+                }); 
+                
         $("#PrevQ").click(function(){
                 currentQuestion = currentQuestion - 1;
                 if(currentQuestion < 1){
@@ -120,7 +119,6 @@
                 currentQuestion = currentQuestion + 1;
                 if(currentQuestion > 4){
                     currentQuestion = 4;
-                    sendtoEnd = 1;
                 }
                 $.post("getQuestionsById",
                 JSON.stringify({question_id: currentQuestion})
@@ -135,7 +133,7 @@
                 JSON.stringify({question_id: currentQuestion, answer: $("#Option1").val(), user_id: userId})
                 , function(data, status) {
                     console.log(data);
-                });
+                }); 
             });
 
             $("#Option2").click(function(){
@@ -144,18 +142,11 @@
                 JSON.stringify({question_id: currentQuestion, answer: $("#Option2").val(), user_id: userId})
                 , function(data, status) {
                     console.log(data);
-                });
+                }); 
             });
-
-            $("#resultsbtn").click(function(){
-              if(sendtoEnd = 1)
-              {
-                $("#test").load("endscreen.asp");
-              }
-            });
-    });
-
-
+    }); 
+    
+    
 
     </script>
 
@@ -167,11 +158,11 @@
         <p>You ready to answer some questions?</p>
         <p style="text-align:center">Answer these questions correctly and see how many you get right! Compare your answers with other players!</p>
     </section>
+    <button id="PrevQ">Previous Question</button>
+    <button id="NextQ">Next Question</button>
     <div class="question_wrap">
         <div class="center">
-            <img id="question_image" style="width: 75%"/> <br>
-            <button id="PrevQ">Previous Question</button>
-            <button id="NextQ">Next Question</button>
+            <img id="question_image" style="width: 75%"/>
         </div>
         <div class="row center">
             <input type="radio" id="Option1">
@@ -179,10 +170,6 @@
             <input type="radio" id="Option2">
             <label id="Option2Text">No</label> <br />
         </div>
-    </div>
-
-    <div class="center" id="Resultsbutt">
-      <button class="Results Button" id="resultsbtn">See Results</button>
     </div>
 
 </body>
