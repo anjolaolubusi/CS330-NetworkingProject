@@ -74,18 +74,31 @@
           display: table;
       }
 
+      table{
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
   </style>
 
   <script>
-    var container = window.open('', '', 'height=400,width=800');
-    container.document.write('<html><head><title>DIV Contents</title>');
-    container.document.write('</head><body >');
-    container.document.write(<data value=""></data>)
 
     $(document).ready(function(){
       $.get("GetTally", null, function(data, status){
+        let temp = JSON.parse(data);
         console.log(data);
-        container.print();
+        console.log(temp);
+        // document.getElementById("resulttable").innerHTML = temp;
+        document.getElementById("test1").innerHTML = data;
+        // console.log("hi");
+        // console.log("bye");
       });
     });
   </script>
@@ -94,14 +107,21 @@
 
 <body>
 
-  <div id="Results">
-    <div class="center">
+  <div class="Results">
+    <div style="center">
+      <!-- <p id="resulttable"></p> -->
+      <p id="test1"></p>
 
-      <p>This is a test</p>
-
+      <!-- <table>
+        <tr>
+          <th>Question</th>
+          <th>Option 1</th>
+          <th>Option 2</th>
+        </tr>
+        <th>console.log(data)</th> -->
 
     </div>
-  </div>
+    <!-- </div> -->
 
 </body>
 </html>
