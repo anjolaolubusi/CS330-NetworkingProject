@@ -15,10 +15,15 @@ class WebServer:
         self.serverSocket.listen(1)
         self.rePatternForFiles = re.compile("(\w+[\/])?\w+[.]{1}\w+")
         self.totalNumOfPartcipants = 0
-        self.quizResponses = []
         with open("questions.json", "r") as f:
             self.questions = json.load(f)
-
+        self.quizResponses = []
+        self.questionTally = {}
+        for i in range(len(self.questions)):
+            self.questionTally[str(i+1)] = {}
+            self.questionTally[str(i+1)][self.questions[str(i+1)]['option1']] = 0
+            self.questionTally[str(i+1)][self.questions[str(i+1)]['option2']] = 0
+        print(self.questionTally)
     '''
     Function that process the HTTP GET Call
     message - Object that represents the socket message
@@ -79,30 +84,9 @@ class WebServer:
         self.connectionSocket.close()
 
     def getTally(self):
-        questionTally = {}
-        for resp in self.quizResponses:
-            if(resp['question_id'] not in questionTally):
-                questionTally[resp['question_id']] = {}
-            if(resp['answer'] not in questionTally[resp['question_id']]):
-                questionTally[resp['question_id']][resp['answer']] = 1
-            else:
-                questionTally[resp['question_id']][resp['answer']] += 1
         self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
-        self.connectionSocket.send(str.encode(json.dumps(questionTally)))
+        self.connectionSocket.send(str.encode(json.dumps(self.questionTally)))
         self.connectionSocket.close()
-
-    def getTallyById(self, user_id):
-        questionTally = {}
-        for resp in self.quizResponses:
-            if(resp['question_id'] not in questionTally):
-                questionTally[resp['question_id']] = {}
-            if(resp['answer'] not in questionTally[resp['question_id']] and resp['user_id'] == user_id):
-                questionTally[resp['question_id']][resp['answer']] = 1
-            elif(resp['user_id'] == user_id):
-                questionTally[resp['question_id']][resp['answer']] += 1    
-        self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
-        self.connectionSocket.send(str.encode(json.dumps(questionTally)))
-        self.connectionSocket.close()  
 
     def getQuestionsById(self, id):
         question = self.questions[str(id)]
@@ -112,18 +96,24 @@ class WebServer:
         
     def acceptAnswer(self, answer):
         questionAnswered = False
+        quizResponseIndex = -1
+        curr_answer = ""
         for i in range(len(self.quizResponses)):
             if(self.quizResponses[i]['user_id'] == answer['user_id'] and self.quizResponses[i]['question_id'] == answer['question_id']):
                 questionAnswered = True
+                quizResponseIndex = i
                 break
         if(questionAnswered):
-            self.quizResponses[i]['answer'] = answer['answer']
+            self.questionTally[str(answer['question_id'])][self.quizResponses[quizResponseIndex]['answer']] -= 1
+            self.quizResponses[quizResponseIndex]['answer'] = answer['answer']
+            self.questionTally[str(answer['question_id'])][answer['answer']] += 1
         else:
             self.quizResponses.append(answer)
+            self.questionTally[str(answer['question_id'])][answer['answer']] += 1
+        
         self.connectionSocket.send(str.encode("HTTP/1.1 200 OK\nContent-Type: text/plain\n\n"))
         self.connectionSocket.send(str.encode(json.dumps(self.quizResponses)))
         self.connectionSocket.close()
-
 
     '''
     Process HTTP POST call to return python object of Request Object
@@ -171,8 +161,8 @@ class WebServer:
         print(f'Running at {addr}')
         try:
             message = self.connectionSocket.recv(4096)
-            print(repr(message))
-            print(message.split(b'\r\n\r\n'))
+            #print(repr(message))
+            #print(message.split(b'\r\n\r\n'))
             if(len(message.split()) > 0):
                 if(message.split()[0].decode("utf-8") == 'GET'):
                     self.HttpGet(message)
@@ -182,9 +172,11 @@ class WebServer:
             self.serverSocket.close()
         except IOError:
             self.NotFound()
+        except Exception as e:
+            print(e)
 
 if __name__ == '__main__':
     server = WebServer()
     while True:
         server.run()
-    server.serverSocket.close()
+    #server.serverSocket.close()
