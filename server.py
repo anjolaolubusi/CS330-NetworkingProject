@@ -67,6 +67,7 @@ class WebServer:
         """
         self.serverSocket = socket(AF_INET, SOCK_STREAM) #Borrowed from Homework 3
         self.serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1) #Borrowed from https://stackoverflow.com/questions/47958473/how-to-reuse-the-socket-address-python
+
         self.serverPort = portNumber
         self.serverSocket.bind(('', self.serverPort)) #Borrowed from Homework 3
         self.serverSocket.listen(1) #Borrowed from Homework 3

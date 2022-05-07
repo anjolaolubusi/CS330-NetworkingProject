@@ -7,12 +7,12 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
 
   <style>
       body {
           margin: 0;
-          font-family: 'Roboto Mono', monospace;
+          font-family: 'Lato', sans-serif;
           color: white;
           background: #202731;
       }
@@ -74,18 +74,51 @@
           display: table;
       }
 
+      table{
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
   </style>
 
   <script>
-    var container = window.open('', '', 'height=400,width=800');
-    container.document.write('<html><head><title>DIV Contents</title>');
-    container.document.write('</head><body >');
-    container.document.write(<data value=""></data>)
 
     $(document).ready(function(){
       $.get("GetTally", null, function(data, status){
+        let temp = JSON.parse(data);
         console.log(data);
-        container.print();
+        console.log(temp);
+        console.log(temp[1]);
+        // console.log(data["1"])
+        // document.getElementById("resulttable").innerHTML = temp;
+        // document.getElementById("Question 1").innerHTML = "Question 1";
+
+        // Question 1
+        document.getElementById("Grizzly").innerHTML = Object.keys(temp[1])[0] + " - " + temp[1][Object.keys(temp[1])[0]];
+        document.getElementById("Silverback").innerHTML = Object.keys(temp[1])[1] + " - " + temp[1][Object.keys(temp[1])[1]];
+
+        // Question 2
+        document.getElementById("2000").innerHTML = Object.keys(temp[2])[0] + " - " + temp[2][Object.keys(temp[2])[0]];
+        document.getElementById("1000").innerHTML = Object.keys(temp[2])[1] + " - " + temp[2][Object.keys(temp[2])[1]];
+
+        // Question 3
+        document.getElementById("Yes").innerHTML = Object.keys(temp[3])[0] + " - " + temp[3][Object.keys(temp[3])[0]];
+        document.getElementById("No").innerHTML = Object.keys(temp[3])[1] + " - " + temp[3][Object.keys(temp[3])[1]];
+
+        // Question 4
+        document.getElementById("Good").innerHTML = Object.keys(temp[4])[0] + " - " + temp[4][Object.keys(temp[4])[0]];
+        document.getElementById("Bad").innerHTML = Object.keys(temp[4])[1] + " - " + temp[4][Object.keys(temp[4])[1]];
+
+        // document.getElementById("test2").innerHTML = JSON.stringify(data);
+        // console.log("hi");
+        // console.log("bye");
       });
     });
   </script>
@@ -96,8 +129,37 @@
 
   <div class="Results">
     <div style="center">
+      <!-- <p id="resulttable"></p> -->
+      <p id="test1"></p>
+      <p id="test2"></p>
 
-      <p>This is a test</p>
+      <table>
+        <tr>
+          <th>Question</th>
+          <th>Option 1</th>
+          <th>Option 2</th>
+        </tr>
+        <tr>
+          <th id="Question 1">Who Wins:</th>
+          <th id="Grizzly"></th>
+          <th id="Silverback"></th>
+        </tr>
+        <tr>
+          <th id="Question 2">How Many Students Does Wooster Have?</th>
+          <th id="2000"></th>
+          <th id="1000"></th>
+        </tr>
+        <tr>
+          <th id="Question 3">Are Bananas Berries?</th>
+          <th id="Yes"></th>
+          <th id="No"></th>
+        </tr>
+        <tr>
+          <th id="Question 4">Which Do You Want To Hear First?</th>
+          <th id="Good"></th>
+          <th id="Bad"></th>
+        </tr>
+
 
 
     </div>
