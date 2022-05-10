@@ -3,7 +3,7 @@ Name of team members: Anjola, Brandon, Craig
 Project Description: A web anonymous voting application built using the client-server archiceture.
 Anjola's Contribution: Transformed the code from Homework 3 into the WebServer class. Added functions so that the WebServer class can process HTTP POST requests with JSON data embedded.
 Brandon's Contribution:
-Craig's Contribution:
+Craig's Contribution: Managed refreshing HTML elements using JQuerry functions and sending data to and receiving data from the server. Defined the HTML structure.
 '''
 
 
